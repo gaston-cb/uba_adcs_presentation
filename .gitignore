@@ -1,0 +1,27 @@
+# Archivos auxiliares de LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.bbl
+*.blg
+*.run.xml
+*.bcf
+*.xdv
+
+# Archivos temporales
+*.tmp
+*.backup
+*.bak
+*~
+*.sav
+
+# Archivos generados
+*.pdf
