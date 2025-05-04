@@ -11,7 +11,7 @@ Se presentan las bases matemáticas del control de actitud. El control de actitu
 	\item Parámetros de Rodrigues
 	\item etc... 
 \end{itemize}
-Estas parametrizaciones presenta ventajas sobre la matriz. La idea central del control de actitud es estimar la matriz de orientaciones En este contexto la matriz se conoce como "matriz de Actitud" (o en inglés attitude) \citep{ARTICLE:1}. 
+Estas parametrizaciones presentan ventajas sobre la matriz. La idea central del control de actitud es estimar la matriz de orientaciones En este contexto la matriz se conoce como "matriz de Actitud" (o en inglés attitude) \citep{ARTICLE:1}. 
 %Esta matriz se obtiene a partir de la parametrización y del modelo dinámico del sistema, donde lo que se obtiene es una estimación y no la matriz real, según el algoritmo utilizado. 
  
  
@@ -119,7 +119,7 @@ En terminos generales, $\mathbf{A}$ depende del tiempo. Si se experimenta una su
 \mathbf{A} = \mathbf{A}(\vec{\mathbf{e}}_n, \vartheta_n) \cdot \mathbf{A}(\vec{\mathbf{e}}_{n-1}, \vartheta_{n-1}) \cdot \ldots \cdot \mathbf{A}(\vec{\mathbf{e}}_1, \vartheta_1)
 \end{equation}
 El orden de las rotaciones es importante. En el caso \ref{eq:seq_Rot} primero se realiza una rotación alrededor del eje 
-$\vec{\mathbf{e}}_1$,con ángulo $\vartheta_1$. Luego a partir de esta posición se realiza una nueva rotación alrededor del eje $\vec{\mathbf{e}}_2$, con ángulo $\vartheta_2$ y asi sucesivamente. Esta construcción representa una parametrización de la matriz de actitud a partir de una secuencia de rotaciones elementales definidas por pares $(\vec{e}_i,\vartheta_i)$. Cada una de estas rotaciones puede describirse mediante la \ref{eq:RodriguezFormula}, y su composición determina la orientación final del cuerpo. Ahora se considera el problema inverso, obtener $\vec{e}$ y $\vartheta$ a partir de la matriz de actitud $\mathbf{A}$.
+$\vec{\mathbf{e}}_1$,con ángulo $\vartheta_1$. Luego a partir de esta posición se realiza una nueva rotación alrededor del eje $\vec{\mathbf{e}}_2$, con ángulo $\vartheta_2$ y asi sucesivamente. Esta construcción representa una parametrización de la matriz de actitud a partir de una secuencia de rotaciones elementales definidas por pares $(\vec{e}_i,\vartheta_i)$. Cada una de estas rotaciones puede describirse mediante  \ref{eq:RodriguezFormula}, y su composición determina la orientación final del cuerpo. Ahora se considera el problema inverso, obtener $\vec{e}$ y $\vartheta$ a partir de la matriz de actitud $\mathbf{A}$.
 
 
 
@@ -196,7 +196,9 @@ También puede considerarse el problema inverso. A partir de la matriz de actitu
 
 
 \subsection{Cuaterniones}
-Los cuaterniones se definen como un vector de cuatro coordenadas con operaciones adicionales defininadas en él. Posee una parte vectorial $\vec{\mathbf{q}}_{1:3}$ y una parte real $q_4$.
+
+Los cuaterniones son una herramienta matemática compuesta por cuatro componentes reales, utilizados principalmente para representar rotaciones en el espacio tridimensional de forma eficiente y sin ambigüedades. Poseen una parte vectorial $\vec{\mathbf{q}}_{1:3}$ y una parte escalar $q_4$. Se expresan como un vector de cuatro elementos:
+
 \begin{equation}
 	\mathbf{q} = \begin{bmatrix}
 		\vec{\mathbf{q}}_{1:3} \\ 
@@ -212,35 +214,44 @@ Los cuaterniones se definen como un vector de cuatro coordenadas con operaciones
 	\end{bmatrix}
 \end{equation}
 
-Si se tienen dos cuaterniones $\mathbf{q}$ y otro $\mathbf{p}$, se define el producto de cuaterniones como: 
-\begin{equation}
-	\mathbf{q} \otimes \mathbf{p} = \begin{bmatrix}
-		p_4 \vec{\mathbf{q}}_{1:3}+q_4\vec{\mathbf{p}}_{1:3} + \vec{\mathbf{q}}_{1:3} \times \vec{\mathbf{p}}_{1:3}\\
-		p_4 q_4 - 	\vec{\mathbf{q}}_{1:3} \cdot 	\vec{\mathbf{p}}_{1:3}
-	\end{bmatrix}
-\end{equation} 
-\begin{equation}
-||\mathbf{q}|| = \sqrt{q_1^2 + q_2^2 + q_3^2 + q_4^2 } = 1  \quad \text{Cuaternion Unitario}
-\end{equation}
 
-\begin{equation}
-	\mathbf{q}^* = 
-	\begin{bmatrix}
+Dado un cuaternión \(\mathbf{q}\) se tienen las siguientes definiciones:
+%
+\begin{align}
+	||\mathbf{q}|| &= \sqrt{q_1^2 + q_2^2 + q_3^2 + q_4^2} = 1  \quad &\text{Cuaternión unitario} \label{eq:quat_unit} \\
+	\mathbf{q}^* &= \begin{bmatrix}
 		\vec{\mathbf{q}}_{1:3} \\ 
 		q_4
 	\end{bmatrix}^* = 
 	\begin{bmatrix}
 		-\vec{\mathbf{q}}_{1:3} \\ 
 		q_4
-	\end{bmatrix} \qquad \text{Conjungado del cuaternion} 
-\end{equation}
+	\end{bmatrix} \quad &\text{Conjugado del cuaternión} \label{eq:conjugate_cuat} \\ 
+	\mathbf{q}^{-1} &= \frac{\mathbf{q}^*}{||\mathbf{q}||} \quad &\text{Inversa de un cuaternión} \label{eq:inverse_quat} \\ 
+	\mathbf{I}_q &= \begin{bmatrix}
+		\mathbf{0}_3 \\
+		1  
+	\end{bmatrix} \quad &\text{Cuaternión identidad} \label{eq:identity_quat}
+\end{align}
 
 
+
+Dados dos cuaterniones $\mathbf{q}$ y otro $\mathbf{p}$, se define el producto de cuaterniones\footnote{Producto de Hamilton} como: 
 \begin{equation}
-	\mathbf{q}^{-1} = \frac{\mathbf{q}^*}{||\mathbf{q}||} \qquad \text{Inversa de un cuaternion}
-\end{equation}
-
-Rotacion de un vector x usando quaterniones unitarios ($||q|| = 1 $). 
+	\mathbf{q} \otimes \mathbf{p} = \begin{bmatrix}
+		p_4 \vec{\mathbf{q}}_{1:3}+q_4\vec{\mathbf{p}}_{1:3} + \vec{\mathbf{q}}_{1:3} \times \vec{\mathbf{p}}_{1:3}\\
+		p_4 q_4 - 	\vec{\mathbf{q}}_{1:3} \cdot 	\vec{\mathbf{p}}_{1:3}
+	\end{bmatrix} = 
+    \begin{bmatrix} 
+    	q_4 & -q_3 &q_2& q_1 \\ 
+    	q_3 & q_4& -q_1& q_2 \\ 
+    	-q_2 & q_1 & q_4& q_3 \\ 
+    	-q_1 & -q_2&-q_3& q_4  
+	\end{bmatrix}\begin{bmatrix}
+	p_1 \\ p_2 \\ p_3 \\ p_4
+	\end{bmatrix}
+\end{equation} 
+Dado un eje de rotación unitario $\vec{e}$ y un ángulo $\vartheta$ se define el cuaternión de rotación como:
 \begin{equation}
 	\textbf{q} = \begin{bmatrix}
  		\vspace{2mm}
@@ -248,19 +259,120 @@ Rotacion de un vector x usando quaterniones unitarios ($||q|| = 1 $).
 		\cos(\frac{\vartheta}{2} )
 	\end{bmatrix}
 \end{equation}
-con $\vec{e}$ el eje de rotación y $\vartheta$ el ángulo de rotación. cle
+
+Si se desea rotar un vector $\vec{x}$ del espacio tridimensional usando cuaterniones, primero se lo extiende al espacio de cuaterniones como:
+\[
+\vec{\mathbf{x}} = \begin{bmatrix}
+	x_1 \\ x_2 \\ x_3 \\ 0
+\end{bmatrix}
+\]
+Luego, la rotación del vector alrededor del eje $\vec{e}$ mediante el ángulo $\vartheta$ se realiza con la siguiente operación, la cual preserva la norma del vector original:
 \begin{equation}
-	\mathbf{v} = \mathbf{q} \otimes \vec{ \mathbf{x}}  \otimes \mathbf{q}^* = 
+	\mathbf{v} = \mathbf{q} \otimes \vec{\mathbf{x}} \otimes \mathbf{q}^* = 
 	\begin{bmatrix}
 		\vec{v} \\
 		0
 	\end{bmatrix}
-	 \qquad \text{Rotacion de un vector usando cuaterniones}
+\end{equation}
+ Para cada rotación sucesiva, el cuaternión de rotación debe multiplicarse con el cuaternión resultante de la rotación anterior. Es el mismo concepto de la ecuación  \ref{eq:seq_Rot}, aplicado a la rotacion utilizando cuaterniones. También se puede  matriz de rotación a partir de un cuaternion unitario como: 
+\begin{align}
+	A(\mathbf{q}) &= (q_4^2 - \|\mathbf{q}_{1:3}\|^2) \mathbf{I}_3 - 2q_4[\mathbf{q}_{1:3} \times] + 2 \mathbf{q}_{1:3} \mathbf{q}_{1:3}^T \nonumber \\
+	&= 
+	\left[
+	\begin{array}{ccc}
+		q_1^2 - q_2^2 - q_3^2 + q_4^2 & 2(q_1q_2 + q_3q_4) & 2(q_1q_3 - q_2q_4) \\
+		2(q_2q_1 - q_3q_4) & -q_1^2 + q_2^2 - q_3^2 + q_4^2 & 2(q_2q_3 + q_1q_4) \\
+		2(q_3q_1 + q_2q_4) & 2(q_3q_2 - q_1q_4) & -q_1^2 - q_2^2 + q_3^2 + q_4^2
+	\end{array}
+	\right]
+\end{align}
+El problema inverso, también puede considerarse, es decir, extraer el cuaternion a partir de la matriz de actitud A. Se plantea el sistema de ecuaciones inverso y se llega a la siguiente solución: 
+\begin{equation}
+	\begin{array}{cc}
+		\left[
+		\begin{array}{c}
+			1 + 2A_{11} - \operatorname{tr}A \\
+			A_{12} + A_{21} \\
+			A_{13} + A_{31} \\
+			A_{23} - A_{32}
+		\end{array}
+		\right]
+		= 4q_1 \mathbf{q}, &
+		\left[
+		\begin{array}{c}
+			A_{21} + A_{12} \\
+			1 + 2A_{22} - \operatorname{tr}A \\
+			A_{23} + A_{32} \\
+			A_{31} - A_{13}
+		\end{array}
+		\right]
+		= 4q_2 \mathbf{q} \\
+		\\
+		\left[
+		\begin{array}{c}
+			A_{31} + A_{13} \\
+			A_{32} + A_{23} \\
+			1 + 2A_{33} - \operatorname{tr}A \\
+			A_{12} - A_{21}
+		\end{array}
+		\right]
+		= 4q_3 \mathbf{q}, &
+		\left[
+		\begin{array}{c}
+			A_{23} - A_{32} \\
+			A_{31} - A_{13} \\
+			A_{12} - A_{21} \\
+			1 + \operatorname{tr}A
+		\end{array}
+		\right]
+		= 4q_4 \mathbf{q}
+	\end{array}
 \end{equation}
 
-\section{Posición tridimensional de la órbita}
+Dado que el problema se tiene que resolver de forma  numerica, pueden utilizarse las cuatro fórmulas anteriores y elegir aquella cuya norma sea la mayor. 
+\section{Sistemas de referencia} 
+La descripción  cinemática y dinámica de un cubesat, se requiene establecer dos sistemas de referencia: 
+\begin{itemize}
+	\item ECI: earth center inertial (ver figura \ref{fig:ECI-frame}): 
+	\begin{itemize}
+		\item Origen en el centro de la Tierra:
+		\item Marco de referencia inercial
+		\item Ejes fijos respecto a las estrellas lejanas
+		\item No incluye la rotación terrestre
+	\end{itemize}
+	\item B-frame o marco de referencia del cuerpo (ver figura \ref{fig:B-frame}). 
+\end{itemize}
 
-En un sistema de dos cuerpos, donde uno de los cuerpos a considerar es el planeta tierra y el otro es es un cubesat y utilizando la tercera ley de newton, se obtiene la ecuación de la órbita para dos cuerpos en un plano x-y(ver figura \ref{fig:elipse_pas}): 
+%El sistema ECI es utilizado para describir la posición espacial 
+El sistema ECI se utiliza para describir la posición espacial 
+(x,y,z) del cubesat en función del tiempo, mientras que el B-frame permite representar su orientación con respecto al sistema ECI. La dinámica y cinemática del cuerpo rígido se expresan en este sistema.
+
+
+\begin{figure}[!htpb]
+	
+	\begin{subfigure}[b]{0.49\linewidth}
+		%		\includegraphics[scale=0.65]{./Figures/PasiveRot.png}
+		\includegraphics[width=\linewidth,height=0.25\textheight]{./Figures/ECI-frame.png}
+		
+		\caption{ECI-FRAME}
+		\label{fig:ECI-frame}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.49\linewidth}
+		%		\includegraphics[scale=0.65]{./Figures/ActiveRot.png}
+		\includegraphics[width=\linewidth, height=0.25\textheight]{./Figures/B-frame.png}
+		
+		\caption{B-frame}
+		\label{fig:B-frame}
+	\end{subfigure}
+	\caption{ECI frame y B-frame}
+	\label{fig:B-frame-ECI-FRAME}
+\end{figure}
+
+
+\subsection{Posición tridimensional de la órbita}
+
+En un sistema de dos cuerpos, donde uno de los cuerpos a considerar es el planeta tierra y el otro es es un cubesat y mediante las leyes de newton, se obtiene la ecuación de la órbita para dos cuerpos en un plano x-y, o en el plano del ecuador\footnote{A veces este marco de referencia se llama perifocal frame} (ver figura \ref{fig:elipse_pas}): 
 
 \begin{alignat}{2}
 r(\theta) &= \frac{h^2}{\mu (1 - e \cos(\theta))} &\qquad& \text{(Ec. de la órbita)} \\
@@ -268,7 +380,7 @@ r(\theta) &= \frac{h^2}{\mu (1 - e \cos(\theta))} &\qquad& \text{(Ec. de la órb
 	\cos(\theta) \\ 
 	\sin(\theta) \\ 
 	0
-\end{bmatrix} && \text{(Posición de la órbita medida desde el foco)}
+\end{bmatrix} && \text{Posición de la órbita medida desde el foco}
 \end{alignat}
 
 
@@ -319,8 +431,22 @@ Estas posición del vector $\vec{r}$ esta en un plano x-y. Para pasar de la órb
 	\item $RAAN (\Omega)$: ascensión recta 
 	\item $i$: inclinación  
 \end{itemize}
+A partir de estos elementos se puede realizar la conversión entre sistemas de coordenadas, desde el plano del ecuador al sistema ECI 
+\begin{equation}
+	\vec{r} = \mathbf{R}_3(\omega) \mathbf{R}_1(i) \mathbf{R}_3(\Omega)\begin{bmatrix}
+		r(\theta)\cos(\theta) \\ 
+		r(\theta)\sin(\theta) \\ 
+		0
+	\end{bmatrix}
+\end{equation}
 
 
+
+\begin{figure}[!htpb]
+	\includegraphics[width=\linewidth]{./Figures/orbit3dplot.png}	
+	\caption{Órbita en 3d}
+	\label{fig:ellipse}
+\end{figure}
 
 
 

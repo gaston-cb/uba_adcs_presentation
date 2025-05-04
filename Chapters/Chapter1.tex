@@ -7,9 +7,9 @@
 Un sistema de control de actitud\footnote{ADCS, por sus siglas en inglés \textit{Attitude Determination and Control System}} es un conjunto de componentes de hardware y software que permite a un satélite o nave espacial mantener o modificar su orientación en el espacio. Para realizar estos ajustes, el sistema utiliza \textbf{actuadores}\footnote{Dispositivo físico que genera movimiento o aplica fuerza para modificar la posición/orientación de un objeto.}. Su funcionamiento integra tres funciones clave:
 
 \begin{enumerate}
-	\item \textbf{Adquisición de datos}: Lectura de sensores (magnéticos, inerciales, etc.).
-	\item \textbf{Procesamiento}: Estimación de la orientación mediante algoritmos.
-	\item \textbf{Corrección}: Aplicación de fuerzas/torques mediante actuadores.
+	\item \textbf{Adquisición de datos}: lectura de sensores (magnéticos, inerciales, etc.).
+	\item \textbf{Procesamiento}: estimación de la orientación mediante algoritmos.
+	\item \textbf{Corrección}: aplicación de fuerzas/torques mediante actuadores.
 \end{enumerate}
 
 Estas correcciones minimizan la diferencia entre la orientación actual y la deseada, garantizando precisión en aplicaciones como vehículos espaciales, drones o sistemas de estabilización.
@@ -29,8 +29,8 @@ Estas correcciones minimizan la diferencia entre la orientación actual y la des
 
 %----------------------------------------------------------------------------------------
 \section{Control de actitud}
-En la actualidad existen pequeños satélites que orbitan alrededor de la tierra denominados CubeSats. Estos usan componentes electrónicos modulares y uno de ellos se llama ADCS. En la siguiente imagen puede verse un módulo comercial 
-	\begin{figure}[htbp]
+En la actualidad existen pequeños satélites que orbitan alrededor de la tierra denominados CubeSats. Estos usan componentes electrónicos modulares y uno de ellos se llama ADCS. En la siguiente imagen puede verse un módulo comercial: 
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.5\textwidth]{./Figures/ADCS-Commercial.jpg}
 	\caption{ADCS comercial - modelo ADCS-MTQ.}
@@ -40,14 +40,14 @@ En la actualidad existen pequeños satélites que orbitan alrededor de la tierra
 
 El sistema ADCS se encarga de mantener y corregir  la orientación del satélite a una orientación mediante un algoritmo de control. 
 
-Un sistema ADCS consta de una unidad inercial de medición(IMU por sus siglas en inglés). Este dispositivo mide campo magnético, aceleración y velocidad angular en tres ejes. 
+Un sistema ADCS posee una unidad inercial de medición(IMU por sus siglas en inglés). Este dispositivo realiza la medición del campo magnético, aceleración y velocidad angular en tres ejes (magnitudes vectoriales). 
 Con estos datos  determina la orientación dentro del espacio usando algoritmos como TRIAD, Davenports, entre otros.
-Una vez calculada la orientación, el sistema genera una actuación (por ejemplo, mediante magnetorqueres o ruedas de reacción) para aplicar un torque (o par) en alguno de los ejes principales. Esto permite mantener la orientación deseada y compensar perturbaciones externas, como la resistencia atmosférica o la influencia gravitatoria. 
+Una vez calculada la orientación, el sistema genera una actuación (por ejemplo, mediante magnetorqueres o ruedas de reacción) para aplicar un torque (o par) en alguno de los ejes principales. Esto permite mantener la orientación deseada y compensar perturbaciones externas, como la resistencia atmosférica, la influencia gravitatoria y otras similares. 
 
 
 \section{Estado del Arte}
 
-El control de actitud en vehículos espaciales es un área ampliamente estudiada, con múltiples enfoques que combinan sensores, algoritmos de estimación y actuadores para mantener o modificar la orientación del vehículo en el espacio. Existen diversas plataformas de simulación y validación de sistemas ADCS, muchas de ellas desarrolladas en entornos como MATLAB/Simulink, FreeFlyer, o STK. Sin embargo, estas soluciones presentan ciertas limitaciones, especialmente en contextos educativos o de bajo presupuesto.
+El control de actitud en vehículos espaciales es un área ampliamente estudiada, con múltiples enfoques que combinan sensores, algoritmos de estimación y actuadores para mantener o modificar la orientación del vehículo en el espacio. Existen diversas plataformas de simulación y validación de sistemas ADCS, muchas de ellas desarrolladas en entornos como MATLAB/Simulink, FreeFlyer,GMAP o STK. Sin embargo, estas soluciones presentan ciertas limitaciones, especialmente en contextos educativos o de bajo presupuesto.
 
 Durante la etapa inicial de esta tesis se realizó una revisión exploratoria de herramientas disponibles, lo cual permitió identificar algunas dificultades frecuentes. Por un lado, muchas plataformas requieren licencias costosas, lo que puede restringir su uso en entornos académicos. Por otro, su complejidad técnica y curva de aprendizaje representan una barrera para estudiantes o investigadores que se inician en esta área. 
 
